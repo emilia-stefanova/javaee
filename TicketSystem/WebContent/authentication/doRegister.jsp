@@ -13,9 +13,11 @@
 	Person person = new Person();
 	person.setUsername(str1);
 	person.setPassword(str2);
+	System.err.println(person.getUsername());
+	System.err	.println(person.getPassword());
 	UserRoles role = new UserRoles(str1, "user");
 	dao.createPerson(person);
 	dao.createRoleForPerson(role);
 %>
-<jsp:forward page="./successful_registration.jsp"></jsp:forward>
+<jsp:forward page="successful_registration.jsp"></jsp:forward>
 

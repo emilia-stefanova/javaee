@@ -8,6 +8,6 @@
 </head>
 <body>
 	Now you are ready to
-	<a href="/TicketSystem/authentication/login1.jsp">log in</a> :).
+	<a href="/TicketSystem/general/homepage.jsp">log in</a> :).
 </body>
 </html>

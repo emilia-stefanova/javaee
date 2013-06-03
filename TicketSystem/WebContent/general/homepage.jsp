@@ -9,10 +9,10 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700"
 	rel="stylesheet" type="text/css" />
-<link href="../css/default.css" rel="stylesheet" type="text/css" />
-<script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
-<script src="../js/JQueryCheckin.js" type="text/javascript"></script>
-<script src="../js/JQuery.js" type="text/javascript"></script>
+<link href="/TicketSystem/css/default.css" rel="stylesheet" type="text/css" />
+<script src="/TicketSystem/js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="/TicketSystem/js/JQueryCheckin.js" type="text/javascript"></script>
+<script src="/TicketSystem/js/JQuery.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="header" class="container">
