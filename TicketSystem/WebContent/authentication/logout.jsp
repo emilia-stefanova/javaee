@@ -25,6 +25,6 @@
 
 	<br />
 	<br />
-	<a href="/TicketSystem/general/homepage.jsp">Click here to go to the homepage.</a>
+	<a href="/TicketSystem/general/homepage.jsp">Click here to log in again.</a>
 </body>
 </html>

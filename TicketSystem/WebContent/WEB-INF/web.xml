@@ -4,29 +4,36 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>TicketSystem</display-name>
+	<welcome-file-list>
+		<welcome-file>/general/homepage.jsp</welcome-file>
+	</welcome-file-list>
 	<listener>
 		<listener-class>cinema.listeners.ContextListener</listener-class>
 	</listener>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Protected Area</web-resource-name>
-			<url-pattern>/administration/*</url-pattern>
+			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
-		</auth-constraint>
-	</security-constraint>
-	
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Protected Area</web-resource-name>
-			<url-pattern>/useraccess/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
 			<role-name>user</role-name>
-			<role-name>admin</role-name>
 		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
 	</security-constraint>
+	 <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Public</web-resource-name>
+      <description>Matches a few special pages.</description>
+      <url-pattern>/authentication/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+ 
 
 	<security-role>
 		<role-name>user</role-name>
@@ -38,7 +45,7 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>/authentication/login.jsp</form-login-page>
+			<form-login-page>/authentication/login1.jsp</form-login-page>
 			<form-error-page>/authentication/error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>

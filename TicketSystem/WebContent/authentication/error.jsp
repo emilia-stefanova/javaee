@@ -17,7 +17,7 @@
 <body>
 	<h1>Login error</h1>
 	<p>
-		<a href="loginpage.jsp">Try again.</a>
+		<a href="/authentication/login1.jsp">Try again.</a>
 	</p>
 </body>
 </html>
