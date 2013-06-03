@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="cinemaDatabase" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+	    <class>cinema.database.Seats</class>
+	    <class>cinema.database.Reservation</class>
+	    <class>cinema.database.Showing</class>
+	    <class>cinema.database.Person</class>
+	    <class>cinema.database.Hall</class>
+	    <class>cinema.database.Cinema</class>
+	    <class>cinema.database.Movie</class>  
+	    <class>cinema.database.UserRoles</class>
+		<properties>
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
+			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="eclipselink.profiler" value="QueryMonitor"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/qwe"/>
+		</properties>
+	</persistence-unit>
+</persistence>
