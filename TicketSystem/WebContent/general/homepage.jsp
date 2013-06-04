@@ -9,7 +9,8 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700"
 	rel="stylesheet" type="text/css" />
-<link href="/TicketSystem/css/default.css" rel="stylesheet" type="text/css" />
+<link href="/TicketSystem/css/default.css" rel="stylesheet"
+	type="text/css" />
 <script src="/TicketSystem/js/jquery-1.8.3.js" type="text/javascript"></script>
 <script src="/TicketSystem/js/JQueryCheckin.js" type="text/javascript"></script>
 <script src="/TicketSystem/js/JQuery.js" type="text/javascript"></script>
@@ -39,8 +40,7 @@
 					} else {
 				%>
 				<p>Hello, guest</p>
-				<a
-					href="/TicketSystem/authentication/register.jsp">Register</a>
+				<a href="/TicketSystem/authentication/register.jsp">Register</a>
 				<%
 					}
 				%>
@@ -53,16 +53,25 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-					<li><div style="display: inline">
-						<a onclick="test(this);"
-							href="/TicketSystem/administration/usermanagement.jsp">Manage
-							users</a>
-					</div></li>
-					<li><div style="display: inline">
+
+				<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/useraccess/reservationsreview.jsp">My
 							reservations</a>
 					</div></li>
+
+				<%
+					if (role.equals("admin")) {
+				%>
+				<li><div style="display: inline">
+
+						<a onclick="test(this);"
+							href="/TicketSystem/administration/usermanagement.jsp">Manage
+							users</a>
+					</div></li>
+				<%
+					}
+				%>
 			</ul>
 		</div>
 	</div>

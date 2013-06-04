@@ -10,11 +10,11 @@
 	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700"
 	rel="stylesheet" type="text/css" />
 <link href="../css/default.css" rel="stylesheet" type="text/css" />
-<script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
 <script src="../js/JQueryCheckin.js" type="text/javascript"></script>
 <script src="../js/JQuery.js" type="text/javascript"></script>
 <script src="../js/regvalidation.js" type="text/javascript"></script>
-</head>
+ --></head>
 <body>
 	<center>
 		<form name="objForm" action="./doRegister.jsp" method="post"

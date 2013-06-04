@@ -2,6 +2,7 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="cinemaDatabase" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		 <jta-data-source>java:/comp/env/jdbc/auth</jta-data-source> 
 	    <class>cinema.database.Seats</class>
 	    <class>cinema.database.Reservation</class>
 	    <class>cinema.database.Showing</class>
@@ -17,7 +18,7 @@
 			<property name="eclipselink.profiler" value="QueryMonitor"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value=""/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/new_base"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/n"/>
 		</properties>
 	</persistence-unit>
 </persistence>

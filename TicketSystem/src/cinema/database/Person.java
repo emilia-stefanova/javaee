@@ -16,54 +16,53 @@ import javax.persistence.TemporalType;
 
 import cinema.util.MD5Digest;
 
-
 @Entity
-@Table (name = "PERSON")
+@Table(name = "PERSON")
 public class Person implements Serializable {
 	private static final long serialVersionUID = -7846215096792524127L;
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column (name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private long personID;
-	@Column (name = "USERNAME")
-    private String username;
-	@Column (name = "NAME")
-    private String name;
-	@Column (name = "DATEOFBIRTH")
+	@Column(name = "USERNAME")
+	private String username;
+	@Column(name = "NAME")
+	private String name;
+	@Column(name = "DATEOFBIRTH")
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
-	@Column (name = "EMAIL")
-    private String email;
-	@Column (name = "PASSWORD")
-    private String password;
-	@Column (name = "SECRETQUESTION")
-    private String secretQuestion;
-	@Column (name = "SECRETANSWER")
-    private String secretAnswer;
-	@Column (name = "ROLE")
-    private String role;
-	@OneToMany (mappedBy = "person")
-    private List<Reservation> reservation;	
+	@Column(name = "EMAIL")
+	private String email;
+	@Column(name = "PASSWORD")
+	private String password;
+	@Column(name = "SECRETQUESTION")
+	private String secretQuestion;
+	@Column(name = "SECRETANSWER")
+	private String secretAnswer;
+	@Column(name = "ROLE")
+	private String role;
+	@OneToMany(mappedBy = "person")
+	private List<Reservation> reservation;
 
-    public Person() {
-    }
+	public Person() {
+	}
 
-    public Person(String username, String name, Date dateOfBirth, String email, 
-    		String password, String secretQuestion, String secretAnswer,
-    		String role) {
-    	
-    	this.username = username;
-    	this.name = name;
-    	this.dateOfBirth = dateOfBirth;
-    	this.email = email;
-    	this.password = MD5Digest.digestPassword(password);
-    	this.secretQuestion = secretQuestion;
-    	this.secretAnswer = secretAnswer;
-    	this.role = role;
-    	
-    }
-    
-    public String getUsername() {
+	public Person(String username, String name, Date dateOfBirth, String email,
+			String password, String secretQuestion, String secretAnswer,
+			String role) {
+
+		this.username = username;
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		 this.password = MD5Digest.digestPassword(password);
+		this.secretQuestion = secretQuestion;
+		this.secretAnswer = secretAnswer;
+		this.role = role;
+
+	}
+
+	public String getUsername() {
 		return username;
 	}
 
@@ -108,7 +107,7 @@ public class Person implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = MD5Digest.digestPassword(password);
+		 this.password = MD5Digest.digestPassword(password);
 	}
 
 	public String getSecretQuestion() {
@@ -147,6 +146,4 @@ public class Person implements Serializable {
 		return serialVersionUID;
 	}
 
-	
-    
 }

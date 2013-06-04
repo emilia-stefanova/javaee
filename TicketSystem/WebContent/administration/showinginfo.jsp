@@ -61,7 +61,7 @@
 					}
 				%>
 			</div>
-			<ul>
+		<ul>
 				<li><div style="display: inline">
 						<a onclick="test(this);" href="/TicketSystem/general/homepage.jsp">Homepage</a>
 					</div></li>
@@ -69,16 +69,25 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-					<li><div style="display: inline">
-						<a onclick="test(this);"
-							href="/TicketSystem/administration/usermanagement.jsp">Manage
-							users</a>
-					</div></li>
-					<li><div style="display: inline">
+
+				<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/useraccess/reservationsreview.jsp">My
 							reservations</a>
 					</div></li>
+
+				<%
+					if (role.equals("admin")) {
+				%>
+				<li><div style="display: inline">
+
+						<a onclick="test(this);"
+							href="/TicketSystem/administration/usermanagement.jsp">Manage
+							users</a>
+					</div></li>
+				<%
+					}
+				%>
 			</ul>
 		</div>
 	</div>
