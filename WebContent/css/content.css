@@ -1,0 +1,76 @@
+
+/* page content */
+
+#content {
+	float: right;
+	width: 75%;
+	padding: 0 0 0 1%;
+}
+
+#content h1 {
+	padding: 0px 0px 20px 20px;
+	font-size: 40px;
+	font-weight: 400;
+}
+
+#content h2 {
+	padding: 0px 0px 20px 0px;
+	letter-spacing: -2px;
+	font-size: 30px;
+	font-weight: 400;
+}
+
+#content h3 {
+	font-size: 20px;
+	font-weight: 400;
+	padding: 10px 0px 5px 0px;
+}
+
+#content h4 {
+	font-size: 15px;
+	font-weight: 400;
+	padding: 0px 0px 5px 0px;
+}
+
+/* login and register forms */
+
+#loginform, #registerform
+{
+	margin-left: 180px;
+}	
+
+/* back on top */
+
+#back-top {
+    margin-left: 20px;
+}
+
+#back-top span {
+    background: url("../images/up-arrow.png") no-repeat scroll center center #DDDDDD;
+    border-radius: 15px 15px 15px 15px;
+    bottom: 40px;
+    display: block;
+    height: 108px;
+    margin-bottom: 7px;
+    position: fixed;
+    width: 108px;
+}
+
+#back-top a 
+{
+	bottom: 30px;
+    position: fixed;
+    color: #BBBBBB;
+    display: block;
+    font: 11px/100% Arial,Helvetica,sans-serif;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 1s ease 0s;
+    width: 108px;
+}
+
+#back-top a:hover span 
+{
+	background-color:#777777;
+}
