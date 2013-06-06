@@ -2,23 +2,22 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="cinemaDatabase" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		 <jta-data-source>java:/comp/env/jdbc/auth</jta-data-source> 
-	    <class>cinema.database.Seats</class>
-	    <class>cinema.database.Reservation</class>
-	    <class>cinema.database.Showing</class>
-	    <class>cinema.database.Person</class>
-	    <class>cinema.database.Hall</class>
-	    <class>cinema.database.Cinema</class>
-	    <class>cinema.database.Movie</class>  
-	    <class>cinema.database.UserRoles</class>
+	    <class>database.cinema.Seats</class>
+	    <class>database.cinema.Reservation</class>
+	    <class>database.cinema.Showing</class>
+	    <class>database.users.Person</class>
+	    <class>database.cinema.Hall</class>
+	    <class>database.cinema.Cinema</class>
+	    <class>database.cinema.Movie</class>  
+	    <class>database.users.UserRoles</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables"/>
 			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="eclipselink.profiler" value="QueryMonitor"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value=""/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/n"/>
+			<property name="javax.persistence.jdbc.password" value="test1234"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/new"/>
 		</properties>
 	</persistence-unit>
 </persistence>

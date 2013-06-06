@@ -10,18 +10,23 @@ package cinema.database;
 
 import java.util.List;
 
+import database.cinema.Seats;
+import database.cinema.Showing;
+import database.users.Person;
+import database.users.UserRoles;
+
 public interface CinemaDAO {
 
 
 	public Showing getShowing(long showingId);
 	
-	public void deleteShowing(long showingId);
+//	public void deleteShowing(long showingId);
 
-	public void updateShowing(Showing showingToUpdate);
+//	public void updateShowing(Showing showingToUpdate);
 
-	public void createShowing(Showing newShowing);
+//	public void createShowing(Showing newShowing);
 	
-	public Movie getMovie(long movieId);
+//	public Movie getMovie(long movieId);
 	
 	public Seats getSeats(long seatsId);
 	
@@ -37,19 +42,19 @@ public interface CinemaDAO {
 
 	public void createPerson(Person newPerson);
 	
-	public String getRoleForPerson(String username);
+//	public String getRoleForPerson(String username);
 
 	public void createRoleForPerson(UserRoles roleToUpdate);
 	
-	public List<Showing> getShowingForMovie(String movieTitle) ;
+//	public List<Showing> getShowingForMovie(String movieTitle) ;
 	
-	public List<Reservation> getCurrentReservationsForUser(String username, String movieTitle);
+//	public List<Reservation> getCurrentReservationsForUser(String username, String movieTitle);
 	
-	public List<Reservation> getReservationsForUser(String username) ;
+//	public List<Reservation> getReservationsForUser(String username) ;
 	
-	public List<Showing> getShowings() ;
+//	public List<Showing> getShowings() ;
 	
-	public List<Movie> getMovies() ;
+//	public List<Movie> getMovies() ;
 	
 
 	// @Override

@@ -16,10 +16,15 @@
 </head>
 <body>
 	<%@ page session="true"%>
+
+	User '<%=request.getRemoteUser()%>' has been logged out.
+
 	<%
 		session.invalidate();
-		response.sendRedirect("/TicketSystem");
 	%>
 
+	<br />
+	<br />
+	<a href="/TicketSystem/general/homepage.jsp">Click here to go to the homepage.</a>
 </body>
 </html>

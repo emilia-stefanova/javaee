@@ -1,4 +1,6 @@
 <%@page import="cinema.database.CinemaDAO"%>
+<%@page import="movies.ShowingsManagement"%>
+<%@page import="users.UsersManagement"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,9 +28,13 @@
 			<div id="greeting">
 				<%
 					CinemaDAO dao = (CinemaDAO) application.getAttribute("cinemaDBAO");
+				UsersManagement usersInfo = (UsersManagement) application
+						.getAttribute("usersInfo");
+				ShowingsManagement showingsInfo = (ShowingsManagement) application
+						.getAttribute("showingsInfo");
 					String role = "";
 					if (request.getUserPrincipal() != null) {
-						role = dao.getRoleForPerson(request.getUserPrincipal()
+						role = usersInfo.getRoleForPerson(request.getUserPrincipal()
 								.getName());
 				%>
 				<p>
@@ -46,7 +52,7 @@
 					}
 				%>
 			</div>
-		<ul>
+			<ul>
 				<li><div style="display: inline">
 						<a onclick="test(this);" href="/TicketSystem/general/homepage.jsp">Homepage</a>
 					</div></li>
@@ -54,25 +60,16 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-
-				<li><div style="display: inline">
-						<a onclick="test(this);"
-							href="/TicketSystem/useraccess/reservationsreview.jsp">My
-							reservations</a>
-					</div></li>
-
-				<%
-					if (role.equals("admin")) {
-				%>
-				<li><div style="display: inline">
-
+					<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/administration/usermanagement.jsp">Manage
 							users</a>
 					</div></li>
-				<%
-					}
-				%>
+					<li><div style="display: inline">
+						<a onclick="test(this);"
+							href="/TicketSystem/useraccess/reservationsreview.jsp">My
+							reservations</a>
+					</div></li>
 			</ul>
 		</div>
 	</div>

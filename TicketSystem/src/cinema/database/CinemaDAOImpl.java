@@ -17,8 +17,17 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import database.cinema.Cinema;
+import database.cinema.Hall;
+import database.cinema.Movie;
+import database.cinema.Reservation;
+import database.cinema.Seats;
+import database.cinema.Showing;
+import database.users.Person;
+import database.users.UserRoles;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+/*
 public class CinemaDAOImpl 
 	implements CinemaDAO{
 	public EntityManager em = null;
@@ -33,60 +42,60 @@ public class CinemaDAOImpl
 		return em.find(Showing.class, showingId);
 	}
 	
-	public void deleteShowing(long showingId) {
-		Showing showing = getShowing(showingId);
-		removeEntity(showing);
-	}
+//	public void deleteShowing(long showingId) {
+//		Showing showing = getShowing(showingId);
+//		removeEntity(showing);
+//	}
 
-	public void updateShowing(Showing showingToUpdate) {
-		em.merge(showingToUpdate);
-	}
+//	public void updateShowing(Showing showingToUpdate) {
+//		em.merge(showingToUpdate);
+//	}
 
-	public void createShowing(Showing newShowing) {
-		insertEntity(newShowing);
-	}
+//	public void createShowing(Showing newShowing) {
+//		insertEntity(newShowing);
+//	}
 	
 	public void createReservation(Reservation newReservation) {
 		insertEntity(newReservation);
 	}
 	
-	public List<Showing> getShowingForMovie(String movieTitle) {
-		TypedQuery<Showing> selectQuery = em.createQuery("SELECT s FROM Showing s WHERE s.movie.movieTitle = :param1", Showing.class);
-		selectQuery.setParameter("param1", movieTitle);
-		List<Showing> allShowings = selectQuery.getResultList();
-		return allShowings;
-	}
+//	public List<Showing> getShowingForMovie(String movieTitle) {
+//		TypedQuery<Showing> selectQuery = em.createQuery("SELECT s FROM Showing s WHERE s.movie.movieTitle = :param1", Showing.class);
+//		selectQuery.setParameter("param1", movieTitle);
+//		List<Showing> allShowings = selectQuery.getResultList();
+//		return allShowings;
+//	}
 	
-	public List<Reservation> getReservationsForUser(String username) {
-		TypedQuery<Reservation> selectQuery = em.createQuery("SELECT r FROM Reservation r WHERE r.person.username = :param1", Reservation.class);
-		selectQuery.setParameter("param1", username);
-		List<Reservation> allReservations = selectQuery.getResultList();
-		return allReservations;
-	}
+//	public List<Reservation> getReservationsForUser(String username) {
+//		TypedQuery<Reservation> selectQuery = em.createQuery("SELECT r FROM Reservation r WHERE r.person.username = :param1", Reservation.class);
+//		selectQuery.setParameter("param1", username);
+//		List<Reservation> allReservations = selectQuery.getResultList();
+//		return allReservations;
+//	}
 	
-	public List<Reservation> getCurrentReservationsForUser(String username, String movieTitle){
-		TypedQuery<Reservation> selectQuery = em.createQuery("SELECT r FROM Reservation r WHERE r.person.username = :param1 and r.showing.movie.movieTitle = :param2", Reservation.class);
-		selectQuery.setParameter("param1", username);
-		selectQuery.setParameter("param2", movieTitle);
-		List<Reservation> allReservations = selectQuery.getResultList();
-		return allReservations;
-	}
+//	public List<Reservation> getCurrentReservationsForUser(String username, String movieTitle){
+//		TypedQuery<Reservation> selectQuery = em.createQuery("SELECT r FROM Reservation r WHERE r.person.username = :param1 and r.showing.movie.movieTitle = :param2", Reservation.class);
+//		selectQuery.setParameter("param1", username);
+//		selectQuery.setParameter("param2", movieTitle);
+//		List<Reservation> allReservations = selectQuery.getResultList();
+//		return allReservations;
+//	}
 	
-	public List<Showing> getShowings() {
-		TypedQuery<Showing> selectQuery = em.createQuery("SELECT s FROM Showing s", Showing.class);
-		List<Showing> allShowings = selectQuery.getResultList();
-		return allShowings;
-	}
+//	public List<Showing> getShowings() {
+//		TypedQuery<Showing> selectQuery = em.createQuery("SELECT s FROM Showing s", Showing.class);
+//		List<Showing> allShowings = selectQuery.getResultList();
+//		return allShowings;
+//	}
+//	
+//	public Movie getMovie(long movieId){
+//		return em.find(Movie.class, movieId);
+//	}
 	
-	public Movie getMovie(long movieId){
-		return em.find(Movie.class, movieId);
-	}
-	
-	public List<Movie> getMovies() {
-		TypedQuery<Movie> selectQuery = em.createQuery("SELECT m FROM Movie m", Movie.class);
-		List<Movie> allMovies = selectQuery.getResultList();
-		return allMovies;
-	}
+//	public List<Movie> getMovies() {
+//		TypedQuery<Movie> selectQuery = em.createQuery("SELECT m FROM Movie m", Movie.class);
+//		List<Movie> allMovies = selectQuery.getResultList();
+//		return allMovies;
+//	}
 	
 	public Person getPerson(long personId) {
 		return em.find(Person.class, personId);
@@ -113,13 +122,12 @@ public class CinemaDAOImpl
 		insertEntity(newPerson);
 	}
 	
-	public String getRoleForPerson(String username) {
-		TypedQuery<String> selectQuery = em.createQuery("SELECT m.role FROM UserRoles m WHERE m.username=:param1", String.class);
-		selectQuery.setParameter("param1", username);
-		String role = selectQuery.getSingleResult();
-		return role;
-		
-	}
+//	public String getRoleForPerson(String username) {
+//		TypedQuery<String> selectQuery = em.createQuery("SELECT m.role FROM UserRoles m WHERE m.username=:param1", String.class);
+//		selectQuery.setParameter("param1", username);
+//		String role = selectQuery.getSingleResult();
+//		return role;		
+//	}
 
 	public void createRoleForPerson(UserRoles role){
 		insertEntity(role);
@@ -293,31 +301,10 @@ public class CinemaDAOImpl
 		insertEntity(role2);
 	}
 
-	// ----- HELPER methods
-	// --------------------------------------------------------------
-	// private void addAuthorToDatabaseIfMissing(Author author) throws
-	// InvalidAuthorException {
-	// if (!authorExists(author.getId())) {
-	// createAuthor(author);
-	// } else {
-	// System.out.println("Author [" + author.getFirstName() + " "
-	// + author.getLastName() + "] is already in database.");
-	// }
-	// }
-	//
-	// private void addBookToDatabaseIfMissing(Movie book) {
-	// if (!bookExists(book.getBookId())) {
-	// insertEntity(book);
-	// System.out.println("Book [" + book.getTitle()
-	// + "] added to database");
-	// } else {
-	// System.out.println("Book [" + book.getTitle()
-	// + "] is already in database");
-	// }
-	// }
 	public void destroy() {
 		throw new NotImplementedException();
 	}
 
 
 }
+*/

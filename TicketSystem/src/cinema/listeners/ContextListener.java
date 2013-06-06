@@ -8,14 +8,18 @@
 
 package cinema.listeners;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import cinema.database.CinemaDAO;
-import cinema.database.CinemaDAOImpl;
+import users.UsersManagement;
+
+import movies.ShowingsManagement;
+
+import cinema.util.DatabaseInteractions;
 
 public final class ContextListener implements ServletContextListener {
 
@@ -25,21 +29,37 @@ public final class ContextListener implements ServletContextListener {
 		try {
 			context = event.getServletContext();
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("cinemaDatabase");
-			CinemaDAO cinemaDBAO = new CinemaDAOImpl(emf.createEntityManager());
-			//context.setAttribute("hitCounter", new Counter());
-			context.setAttribute("cinemaDBAO", cinemaDBAO);
+			EntityManager em = emf.createEntityManager();
+
+			// CinemaDAO cinemaDBAO = new CinemaDAOImpl(em);
+			DatabaseInteractions dbInteractions = new DatabaseInteractions(em);
+			ShowingsManagement showingsInfo = new ShowingsManagement(em);
+			UsersManagement usersInfo = new UsersManagement(em);
+
+			// context.setAttribute("cinemaDBAO", cinemaDBAO);
+			context.setAttribute("dbInteractions", dbInteractions);
+			context.setAttribute("showingsInfo", showingsInfo);
+			context.setAttribute("usersInfo", usersInfo);
+
 		} catch (Exception ex) {
-			System.err.println("Couldn't create bookstore database bean: "
-					+ ex.getMessage());
+			System.err.println("Couldn't create bookstore database bean: " + ex.getMessage());
 			ex.printStackTrace(System.err);
 		}
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {
 		context = event.getServletContext();
-		CinemaDAO cinemaDBAO = (CinemaDAOImpl) context.getAttribute("cinemaDBAO");
-		cinemaDBAO.destroy();
-		context.removeAttribute("cinemaDBAO");
+//		CinemaDAO cinemaDBAO = (CinemaDAOImpl) context.getAttribute("cinemaDBAO");
+		UsersManagement usersInfo = (UsersManagement) context.getAttribute("usersInfo");
+		ShowingsManagement showingsInfo = (ShowingsManagement) context.getAttribute("showingsInfo");
+		
+//		cinemaDBAO.destroy();
+		usersInfo.destroy();
+		showingsInfo.destroy();
+		
+//		context.removeAttribute("cinemaDBAO");
+		context.removeAttribute("usersInfo");
+		context.removeAttribute("showingsInfo");
 	}
 
 }

@@ -10,34 +10,31 @@
 	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700"
 	rel="stylesheet" type="text/css" />
 <link href="../css/default.css" rel="stylesheet" type="text/css" />
-<!-- <script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
 <script src="../js/JQueryCheckin.js" type="text/javascript"></script>
 <script src="../js/JQuery.js" type="text/javascript"></script>
-<script src="../js/regvalidation.js" type="text/javascript"></script>
- --></head>
+</head>
 <body>
-	<center>
-		<form name="objForm" action="./doRegister.jsp" method="post"
-			onSubmit="return validate(this)">
-			<table>
-				<tr>
-					<td class="deepbluetExampletbold"><b>Create a user account</b></td>
-				</tr>
-				<tr>
-					<td class="colouredCell"><b>Name*</b></td>
-					<td><input name="t1" /></td>
-				</tr>
-				<tr>
-					<td class="colouredCell"><b>Password*</b></td>
-					<td><input name="t2" type="password" /></td>
-				</tr>
-				<tr>
-					<td class="colouredCell"><b>Confirm password*</b></td>
-					<td><input name="t3" type="password" /></td>
-				</tr>
-			</table>
-			<input type="submit" value="Register" />
-		</form>
-	</center>
+	<form name="objForm" action="./doRegister.jsp" method="post"
+		onSubmit="return validate(this)">
+		<table>
+			<tr>
+				<td class="deepbluetExampletbold"><b>Create a user account</b></td>
+			</tr>
+			<tr>
+				<td class="colouredCell"><b>Name*</b></td>
+				<td><input name="t1" /></td>
+			</tr>
+			<tr>
+				<td class="colouredCell"><b>Password*</b></td>
+				<td><input name="t2" type="password" /></td>
+			</tr>
+			<tr>
+				<td class="colouredCell"><b>Confirm password*</b></td>
+				<td><input name="t3" type="password" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Register" />
+	</form>
 </body>
 </html>

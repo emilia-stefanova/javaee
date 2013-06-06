@@ -1,11 +1,13 @@
 <%@page import="java.util.List"%>
-<%@page import="cinema.database.Showing"%>
-<%@page import="cinema.database.Reservation"%>
-<%@page import="cinema.database.Movie"%>
-<%@page import="cinema.database.Hall"%>
-<%@page import="cinema.database.Person"%>
+<%@page import="database.cinema.Showing"%>
+<%@page import="database.cinema.Reservation"%>
+<%@page import="database.cinema.Movie"%>
+<%@page import="database.cinema.Hall"%>
+<%@page import="database.users.Person"%>
 <%@page import="cinema.database.CinemaDAOImpl"%>
 <%@page import="cinema.database.CinemaDAO"%>
+<%@page import="movies.ShowingsManagement"%>
+<%@page import="users.UsersManagement"%>
 <%@page import="cinema.listeners.ContextListener"%>
 <%@page import="javax.persistence.EntityManager"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
@@ -28,12 +30,16 @@
 
 <%
 	CinemaDAO dao = (CinemaDAO) application.getAttribute("cinemaDBAO");
-	List<Movie> movies = dao.getMovies();
+	UsersManagement usersInfo = (UsersManagement) application
+			.getAttribute("usersInfo");
+	ShowingsManagement showingsInfo = (ShowingsManagement) application
+			.getAttribute("showingsInfo");
+	List<Movie> movies = showingsInfo.getMovies();
 	String role = "";
 %>
 
 <body>
-<div id="header" class="container">
+	<div id="header" class="container">
 		<div id="logo">
 			<h1>
 				<a class="logogreet">Welcome to TU Cinema!</a>
@@ -43,7 +49,7 @@
 			<div id="greeting">
 				<%
 					if (request.getUserPrincipal() != null) {
-						role = dao.getRoleForPerson(request.getUserPrincipal()
+						role = usersInfo.getRoleForPerson(request.getUserPrincipal()
 								.getName());
 				%>
 				<p>
@@ -68,29 +74,20 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-
+				<li><div style="display: inline">
+						<a onclick="test(this);"
+							href="/TicketSystem/administration/usermanagement.jsp">Manage
+							users</a>
+					</div></li>
 				<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/useraccess/reservationsreview.jsp">My
 							reservations</a>
 					</div></li>
-
-				<%
-					if (role.equals("admin")) {
-				%>
-				<li><div style="display: inline">
-
-						<a onclick="test(this);"
-							href="/TicketSystem/administration/usermanagement.jsp">Manage
-							users</a>
-					</div></li>
-				<%
-					}
-				%>
 			</ul>
 		</div>
 	</div>
-	
+
 	<div id="page" class="container">
 		<div id="back-top" style="display: none;">
 			<a href="#content"> <span></span> Back to top
@@ -98,96 +95,124 @@
 		</div>
 		<div id="content">
 
-	<h3>Showing's tickets</h3>
-	
-	<%
-			if(!(request.getParameter("selected_movie") == null || request.getParameter("selected_movie").isEmpty()) &&
-					!(request.getParameter("selected_user") == null || request.getParameter("selected_user").isEmpty())) { 
-				
-				if(!(request.getParameter("reservation") == null || request.getParameter("reservation").isEmpty())){
-					Person person = dao.getPerson(request.getParameter("selected_user"));
-					List<Reservation> tempReservations = dao.getCurrentReservationsForUser(request.getParameter("selected_user"), request.getParameter("selected_movie"));
-					for(Reservation tempReservation : tempReservations){
-						if(request.getParameter("reservation").equals(String.valueOf(tempReservation.getReservationID()))) {
-							tempReservation.setIsUsed(true);
+			<h3>Showing's tickets</h3>
+
+			<%
+				if (!(request.getParameter("selected_movie") == null || request
+						.getParameter("selected_movie").isEmpty())
+						&& !(request.getParameter("selected_user") == null || request
+								.getParameter("selected_user").isEmpty())) {
+
+					if (!(request.getParameter("reservation") == null || request
+							.getParameter("reservation").isEmpty())) {
+						Person person = dao.getPerson(request
+								.getParameter("selected_user"));
+						List<Reservation> tempReservations = usersInfo
+								.getCurrentReservationsForUser(
+										request.getParameter("selected_user"),
+										request.getParameter("selected_movie"));
+						for (Reservation tempReservation : tempReservations) {
+							if (request.getParameter("reservation").equals(
+									String.valueOf(tempReservation
+											.getReservationID()))) {
+								tempReservation.setIsUsed(true);
+							}
 						}
 					}
-				}
+
+					List<Reservation> reservations = usersInfo
+							.getCurrentReservationsForUser(
+									request.getParameter("selected_user"),
+									request.getParameter("selected_movie"));
+					if (reservations != null && !reservations.isEmpty()) {
+			%>
+
+			<table class="infotable">
+				<tr>
+					<th>User</th>
+					<th>Movie</th>
+					<th>Hall Nr</th>
+					<th>Seat Nr</th>
+					<th>Time</th>
+					<th>Payed</th>
+					<th>Used</th>
+					<th>Submit presence</th>
+				<tr>
+
+					<%
+						for (Reservation reservation : reservations) {
+					%>
 				
+				<tr>
+					<td><%=reservation.getPerson().getName()%></td>
+					<td><%=reservation.getShowing().getMovie()
+								.getMovieTitle()%></td>
+					<td><%=reservation.getShowing().getHall()
+								.getHallNumber()%></td>
+					<td><%=reservation.getSeat().getSeatNumber()%></td>
+					<td><%=reservation.getShowing().getTime()%></td>
+					<%
+						if (reservation.getIsPaid()) {
+					%>
 
-				List<Reservation> reservations = dao.getCurrentReservationsForUser(request.getParameter("selected_user"), request.getParameter("selected_movie"));
-				if(reservations != null && !reservations.isEmpty()) {
-		%>
+					<td>yes</td>
+					<%
+						} else {
+					%>
+					<td>no</td>
+					<%
+						}
+					%>
+					<%
+						if (reservation.getIsUsed()) {
+					%>
 
-				<table class="infotable">
-					<tr>
-						<th>User</th>
-						<th>Movie</th>
-						<th>Hall Nr</th>
-						<th>Seat Nr</th>
-						<th>Time</th>
-						<th>Payed</th>
-						<th>Used</th>
-						<th>Submit presence</th>
-					<tr>
-			
+					<td>yes</td>
+					<td></td>
+					<%
+						} else {
+					%>
+					<td>no</td>
+					<td><a
+						href="checkinuser.jsp?selected_user=<%=request.getParameter("selected_user")%>&selected_movie=<%=request.getParameter("selected_movie")%>&reservation=<%=reservation.getReservationID()%>"><button
+								class="submitButton">Present</button></a></td>
+					<%
+						}
+					%>
+
+				</tr>
+
+				<%
+					}
+				%>
+			</table>
 			<%
-			
-
-				for(Reservation reservation : reservations){
-    %>
-					<tr>
-						<td><%=reservation.getPerson().getName()%></td>
-						<td><%=reservation.getShowing().getMovie().getMovieTitle()%></td>
-						<td><%=reservation.getShowing().getHall().getHallNumber()%></td>
-						<td><%=reservation.getSeat().getSeatNumber()%></td>
-						<td><%=reservation.getShowing().getTime()%></td>
-					<%if(reservation.getIsPaid()) {%>
-						
-						<td>yes</td>
-					<%} else {%>
-						<td>no</td>
-					<%} %>
-					<%if(reservation.getIsUsed()) {%>
-						
-						<td>yes</td>
-						<td></td>
-					<%} else {%>
-						<td>no</td>
-						<td><a href="checkinuser.jsp?selected_user=<%=request.getParameter("selected_user")%>&selected_movie=<%=request.getParameter("selected_movie")%>&reservation=<%=reservation.getReservationID()%>"><button class="submitButton">Present</button></a></td>
-					<%} %>
-						
-					</tr>
-				
-<%
+				} else {
+			%>
+			<h2>
+				No reservations found for movie "<%=request.getParameter("selected_movie")%>"
+				for user "<%=request.getParameter("selected_user")%>"
+			</h2>
+			<%
 				}
-			 %></table> <%
 				}
-			else
-			{
-		%>
-					<h2>No reservations found for movie "<%=request.getParameter("selected_movie") %>" for user "<%=request.getParameter("selected_user") %>"</h2>
-		<%
-			}
-		}
-	%>
+			%>
 
-	<h3>Select movie</h3>
-	<select id="movieSelect">
-	<%
-		for (Movie movie : movies) {
-	%>
-			<option><%=movie.getMovieTitle()%></option>
-	<%
-		}
-	%>
-	</select>
-	
-	<h3>Select user</h3>
-	
-	<input type="text" id="username" >
-	
-	<a id="showInfoButton" href="checkinuser.jsp"><button id=userinfo>Show info</button></a>
+			<h3>Select movie</h3>
+			<select id="movieSelect">
+				<%
+					for (Movie movie : movies) {
+				%>
+				<option><%=movie.getMovieTitle()%></option>
+				<%
+					}
+				%>
+			</select>
+
+			<h3>Select user</h3>
+
+			<input type="text" id="username"> <a id="showInfoButton"
+				href="checkinuser.jsp"><button id=userinfo>Show info</button></a>
 
 
 		</div>

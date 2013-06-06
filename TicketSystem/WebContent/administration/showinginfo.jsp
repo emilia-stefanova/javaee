@@ -1,10 +1,12 @@
 <%@page import="java.util.List"%>
-<%@page import="cinema.database.Showing"%>
-<%@page import="cinema.database.Reservation"%>
-<%@page import="cinema.database.Movie"%>
-<%@page import="cinema.database.Hall"%>
+<%@page import="database.cinema.Showing"%>
+<%@page import="database.cinema.Reservation"%>
+<%@page import="database.cinema.Movie"%>
+<%@page import="database.cinema.Hall"%>
 <%@page import="cinema.database.CinemaDAOImpl"%>
 <%@page import="cinema.database.CinemaDAO"%>
+<%@page import="movies.ShowingsManagement"%>
+<%@page import="users.UsersManagement"%>
 <%@page import="cinema.listeners.ContextListener"%>
 <%@page import="javax.persistence.EntityManager"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
@@ -28,7 +30,10 @@
 
 <%
 	CinemaDAO dao = (CinemaDAO) application.getAttribute("cinemaDBAO");
-	List<Movie> movies = dao.getMovies();
+	ShowingsManagement showingsInfo = (ShowingsManagement) application.getAttribute("showingsInfo");
+	UsersManagement usersInfo = (UsersManagement) application
+			.getAttribute("usersInfo");
+	List<Movie> movies = showingsInfo.getMovies();
 	String role = "";
 %>
 
@@ -43,7 +48,7 @@
 			<div id="greeting">
 				<%
 					if (request.getUserPrincipal() != null) {
-						role = dao.getRoleForPerson(request.getUserPrincipal()
+						role = usersInfo.getRoleForPerson(request.getUserPrincipal()
 								.getName());
 				%>
 				<p>
@@ -61,7 +66,7 @@
 					}
 				%>
 			</div>
-		<ul>
+			<ul>
 				<li><div style="display: inline">
 						<a onclick="test(this);" href="/TicketSystem/general/homepage.jsp">Homepage</a>
 					</div></li>
@@ -69,25 +74,16 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-
-				<li><div style="display: inline">
-						<a onclick="test(this);"
-							href="/TicketSystem/useraccess/reservationsreview.jsp">My
-							reservations</a>
-					</div></li>
-
-				<%
-					if (role.equals("admin")) {
-				%>
-				<li><div style="display: inline">
-
+					<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/administration/usermanagement.jsp">Manage
 							users</a>
 					</div></li>
-				<%
-					}
-				%>
+					<li><div style="display: inline">
+						<a onclick="test(this);"
+							href="/TicketSystem/useraccess/reservationsreview.jsp">My
+							reservations</a>
+					</div></li>
 			</ul>
 		</div>
 	</div>
@@ -102,7 +98,7 @@
 	
 	<%
 			if(!(request.getParameter("selected_movie") == null || request.getParameter("selected_movie").isEmpty())) { 
-				List<Showing> showings = dao.getShowingForMovie(request.getParameter("selected_movie"));
+				List<Showing> showings = showingsInfo.getShowingForMovie(request.getParameter("selected_movie"));
 				if(showings != null && !showings.isEmpty()) {
 		%>
 

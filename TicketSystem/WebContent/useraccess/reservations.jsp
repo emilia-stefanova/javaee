@@ -1,10 +1,12 @@
 <%@page import="java.util.List"%>
-<%@page import="cinema.database.Showing"%>
-<%@page import="cinema.database.Movie"%>
-<%@page import="cinema.database.Hall"%>
-<%@page import="cinema.database.Seats"%>
+<%@page import="database.cinema.Showing"%>
+<%@page import="database.cinema.Movie"%>
+<%@page import="database.cinema.Hall"%>
+<%@page import="database.cinema.Seats"%>
 <%@page import="cinema.database.CinemaDAOImpl"%>
 <%@page import="cinema.database.CinemaDAO"%>
+<%@page import="movies.ShowingsManagement"%>
+<%@page import="users.UsersManagement"%>
 <%@page import="cinema.listeners.ContextListener"%>
 <%@page import="javax.persistence.EntityManager"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
@@ -28,6 +30,10 @@
 
 <%
 	CinemaDAO dao = (CinemaDAO) application.getAttribute("cinemaDBAO");
+	UsersManagement usersInfo = (UsersManagement) application
+			.getAttribute("usersInfo");
+	ShowingsManagement showingsInfo = (ShowingsManagement) application
+			.getAttribute("showingsInfo");
 	String role = "";
 %>
 
@@ -42,7 +48,7 @@
 			<div id="greeting">
 				<%
 					if (request.getUserPrincipal() != null) {
-						role = dao.getRoleForPerson(request.getUserPrincipal()
+						role = usersInfo.getRoleForPerson(request.getUserPrincipal()
 								.getName());
 				%>
 				<p>
@@ -67,25 +73,16 @@
 						<a onclick="test(this);"
 							href="/TicketSystem/showings/listshowings.jsp">Showings</a>
 					</div></li>
-
+				<li><div style="display: inline">
+						<a onclick="test(this);"
+							href="/TicketSystem/administration/usermanagement.jsp">Manage
+							users</a>
+					</div></li>
 				<li><div style="display: inline">
 						<a onclick="test(this);"
 							href="/TicketSystem/useraccess/reservationsreview.jsp">My
 							reservations</a>
 					</div></li>
-
-				<%
-					if (role.equals("admin")) {
-				%>
-				<li><div style="display: inline">
-
-						<a onclick="test(this);"
-							href="/TicketSystem/administration/usermanagement.jsp">Manage
-							users</a>
-					</div></li>
-				<%
-					}
-				%>
 			</ul>
 		</div>
 	</div>
@@ -100,10 +97,11 @@
 
 			<h3>Reserve tickets:</h3>
 
-			<br><br>
+			<br>
+			<br>
 
 			<%
-				Showing showing = dao.getShowing(Integer.parseInt(request
+				Showing showing = showingsInfo.getShowing(Integer.parseInt(request
 						.getParameter("showingid")));
 
 				Hall hall = showing.getHall();
@@ -121,7 +119,8 @@
 					%>
 				</tr>
 				<tr>
-					<td class="rownumber">Row <%=seats.get(i).getRowNumber()%>&nbsp;&nbsp;&nbsp;</td>
+					<td class="rownumber">Row <%=seats.get(i).getRowNumber()%>&nbsp;&nbsp;&nbsp;
+					</td>
 					<%
 						}
 							if (seats.get(i).isOccupied()) {
